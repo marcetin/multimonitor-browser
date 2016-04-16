@@ -17,6 +17,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
+from __future__ import print_function
 import gtk
 import webkit
 import sys
@@ -86,7 +87,7 @@ class Kiosk(object):
             return
         uri = urlparse(request.get_uri())
         if uri.hostname not in self.allowed_hosts:
-            print '{0} not allowed host. Allowed hosts are: {1}.'.format(uri.hostname, ", ".join(self.allowed_hosts))
+            print('{0} not allowed host. Allowed hosts are: {1}.'.format(uri.hostname, ", ".join(self.allowed_hosts)))
             decision.ignore()
 
 
