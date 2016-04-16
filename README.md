@@ -40,7 +40,7 @@ You can even allow more than one extra host:
 
 `./browser.py http://www.google.com/ --allowed-hosts github.com www.github.com www.python.org pypi.python.org`
 
-So you can search in google Github and Python and enter in those specifics sites. You may also need to add to **allowed-hosts** the list your regional Google site, for example **www.google.com.br**
+So you can search in google Github and Python and enter in those specifics sites. You may also need to add to **allowed-hosts** your regional Google site, for example **www.google.com.br**
 
 You can also disable this, and allow any site navigation using **--allow-any-host**:
 
