@@ -44,6 +44,7 @@ class Kiosk(object):
     def __init__(self, url, monitor, disable_close=True, allow_any_host=False, allowed_hosts=None):
         self.disable_close = disable_close
         self.allow_any_host = allow_any_host
+        url = 'http://' + url if not '://' in url else url
         self.allowed_hosts = [urlparse(url).hostname]
 
         if allowed_hosts:
@@ -71,7 +72,6 @@ class Kiosk(object):
         self.window.set_resizable(False)
 
     def open_url(self, url):
-        url = 'http://' + url if not '://' in url else url
         self.web.open(url)
 
     def move_to_monitor(self, id):
