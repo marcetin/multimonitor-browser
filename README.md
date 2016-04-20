@@ -73,6 +73,16 @@ Also, by default, you can't close browser window. To change this behavior you ne
 ./browser.py http://www.google.com/ --allow-close
 ```
 
+## Detect Monitors Script
+
+The **detect_monitors.py** script helps screen detection to know which monitor each URL will go. It returns URLs in correct order to use with **browser.py**
+
+Example usage:
+```bash
+URLS=`./detect_monitors.py http://www.github.com/ http://www.python.org --messages "Select the monitor to show GitHub" "Select the monitor to show Python.org"`
+./browser.py $URLS
+```
+
 ## Contributors
 
 * Thomaz de Oliveira dos Reis <thor27@gmail.com>
