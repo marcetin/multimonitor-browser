@@ -87,7 +87,6 @@ class Kiosk(object):
             gtk.main_quit()
 
     def execute_system_commands(self, command):
-        import ipdb; ipdb.set_trace()
         if command == '/quit':
             gtk.main_quit()
 
