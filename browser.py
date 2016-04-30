@@ -51,9 +51,12 @@ class Kiosk(object):
             self.allowed_hosts += allowed_hosts
 
         self.create_window()
-        self.move_to_monitor(monitor)
+
+        self.move_to_monitor(monitor, windowed)
+
         if not windowed:
             self.fullscreen()
+
         self.open_url(url)
         Kiosk.push_kiosk()
 
@@ -75,10 +78,13 @@ class Kiosk(object):
     def open_url(self, url):
         self.web.open(url)
 
-    def move_to_monitor(self, id):
+    def move_to_monitor(self, id, windowed=False):
         monitor = self.screen.get_monitor_geometry(id)
         self.window.move(monitor.x, monitor.y)
-        self.window.set_size_request(monitor.width, monitor.height)
+        if windowed:
+            self.window.set_size_request(int(monitor.width * 0.7), int(monitor.height * 0.7))
+        else:
+            self.window.set_size_request(monitor.width, monitor.height)
 
     def on_close(self, *args, **kwargs):
         if self.disable_close:
