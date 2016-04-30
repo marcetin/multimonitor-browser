@@ -41,7 +41,7 @@ class Kiosk(object):
         Kiosk.__NUM_KIOSKS -= 1
         return Kiosk.__NUM_KIOSKS
 
-    def __init__(self, url, monitor, disable_close=True, allow_any_host=False, allowed_hosts=None):
+    def __init__(self, url, monitor, disable_close=True, allow_any_host=False, allowed_hosts=None, windowed=False):
         self.disable_close = disable_close
         self.allow_any_host = allow_any_host
         url = 'http://' + url if not '://' in url else url
@@ -52,7 +52,8 @@ class Kiosk(object):
 
         self.create_window()
         self.move_to_monitor(monitor)
-        self.fullscreen()
+        if not windowed:
+            self.fullscreen()
         self.open_url(url)
         Kiosk.push_kiosk()
 
@@ -110,6 +111,9 @@ def parse_args(args):
     parser.add_argument('-c', '--allow-close', dest='disable_close', action='store_false',
                         help='Allow browser window to be closed')
 
+    parser.add_argument('-w', '--windowed', dest='windowed', action='store_true',
+                        help='Show Browser in Windowed mode (Not Fullscreen)')
+
     parser.add_argument('-y', '--allow-any-host', dest='allow_any_host', action='store_true',
                         help='Allow any hosts to be opened in the browser')
 
@@ -134,7 +138,8 @@ def main():
             monitor,
             disable_close=args.disable_close,
             allow_any_host=args.allow_any_host,
-            allowed_hosts=args.allowed_hosts
+            allowed_hosts=args.allowed_hosts,
+            windowed=args.windowed,
         )
 
     gtk.main()
