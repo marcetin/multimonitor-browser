@@ -62,11 +62,13 @@ class Kiosk(object):
 
     def create_window(self):
         self.web = webkit.WebView()
+        self.web.set_full_content_zoom(True)
         self.window = gtk.Window()
         self.screen = self.window.get_screen()
         self.scroll_container = gtk.ScrolledWindow()
         self.scroll_container.add(self.web)
         self.window.add(self.scroll_container)
+        self.window.connect("key-press-event", self.on_key_press)
         self.window.connect("delete-event", self.on_close)
         self.web.connect("navigation-policy-decision-requested", self.navigate)
         self.window.show_all()
@@ -85,6 +87,19 @@ class Kiosk(object):
             self.window.set_size_request(int(monitor.width * 0.7), int(monitor.height * 0.7))
         else:
             self.window.set_size_request(monitor.width, monitor.height)
+
+    def on_key_press(self, widget, event):
+        keyval = event.keyval
+        keyval_name = gtk.gdk.keyval_name(keyval)
+        state = event.state
+        ctrl = (state & gtk.gdk.CONTROL_MASK)
+
+        if ctrl and keyval_name == 'minus':
+            self.web.zoom_out()
+        elif ctrl and keyval_name in ('plus', 'equal'):
+            self.web.zoom_in()
+        elif ctrl and keyval_name == '0':
+            self.web.set_zoom_level(1)
 
     def on_close(self, *args, **kwargs):
         if self.disable_close:
