@@ -111,6 +111,9 @@ class Kiosk(object):
     def execute_system_commands(self, command):
         if command == '/quit':
             gtk.main_quit()
+        if command == '/quit_error':
+            gtk.main_quit()
+            exit(1)
 
     def navigate(self, view, frame, request, action, decision):
         uri = urlparse(request.get_uri())
