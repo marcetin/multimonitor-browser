@@ -62,6 +62,8 @@ class Kiosk(object):
 
     def create_window(self):
         self.web = webkit.WebView()
+        settings = self.web.get_settings()
+        settings.set_property('enable-default-context-menu', False)
         self.web.set_full_content_zoom(True)
         self.window = gtk.Window()
         self.screen = self.window.get_screen()
