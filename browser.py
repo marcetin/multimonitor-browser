@@ -51,7 +51,7 @@ class Kiosk(object):
             self.allowed_hosts += allowed_hosts
 
         self.create_window()
-
+        self.window.set_title('MultiMonitor Browser - {}'.format(url))
         self.move_to_monitor(monitor, windowed)
 
         if not windowed:
